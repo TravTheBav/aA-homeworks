@@ -6,8 +6,10 @@ class PolyTreeNode
         @parent = nil
         @children = []
     end
-
     
+    def inspect
+        @value.inspect
+    end
 
     def parent=(parent_node)
         old_parent = parent
@@ -29,6 +31,25 @@ class PolyTreeNode
         raise "arg must be a child" if children.include?(child_node) == false
         @children.delete(child_node)
         child_node.parent = nil            
+    end
+
+    def dfs(target_value)
+        return self if value == target_value
+        children.each do |child|
+            search_result = child.dfs(target_value)
+            return search_result unless search_result.nil?
+        end
+        nil
+    end
+
+    def bfs(target_value)
+        queue = [self]
+        until queue.empty?
+            first_node = queue.shift
+            return first_node if first_node.value == target_value
+            first_node.children.each { |child| queue << child }
+        end
+        nil
     end
 
 end
