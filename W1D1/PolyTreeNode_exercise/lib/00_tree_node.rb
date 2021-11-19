@@ -7,6 +7,8 @@ class PolyTreeNode
         @children = []
     end
 
+    
+
     def parent=(parent_node)
         old_parent = parent
         unless parent.equal?(parent_node) # failsafe incase parent is added twice
@@ -20,8 +22,7 @@ class PolyTreeNode
     end
 
     def add_child(child_node)
-        @children << child_node unless @children.include?(child_node)
-        child_node.parent = self
+        child_node.parent = self unless children.include?(child_node)
     end
 
     def remove_child(child_node)
