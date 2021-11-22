@@ -3,6 +3,7 @@ require_relative 'poly_tree_node.rb'
 class KnightPathFinder
     attr_reader :starting_pos, :root_node, :considered_positions
 
+    # returns all valid moves in an 8x8 board
     def self.valid_moves(pos)
         start_x, start_y = pos
         positions = []
@@ -34,6 +35,7 @@ class KnightPathFinder
         new_positions
     end
 
+    # builds the entire move tree starting at the root_node
     def build_move_tree
         queue = [@root_node]
         until queue.empty?
@@ -46,4 +48,27 @@ class KnightPathFinder
         end
     end
 
+    # uses bfs to get from root_node to the last node in the search tree
+    def find_path(end_pos)
+        build_move_tree
+        last_node = root_node.bfs(end_pos)
+        p trace_path_back(last_node)
+    end
+
+    def trace_path_back(end_node)
+        path = []
+        current_node = end_node
+        until current_node.parent.nil?
+            path.unshift(current_node)
+            current_node = current_node.parent
+        end
+        path.unshift(root_node)
+        path      
+    end
 end
+
+# for testing
+# start = [0,0]
+# end_pos = [6,2]
+# kpf = KnightPathFinder.new(start)
+# kpf.find_path(end_pos)
