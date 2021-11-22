@@ -24,6 +24,14 @@ class KnightPathFinder
         @considered_positions = [@starting_pos]
     end
 
+    # checks for all valid positions that haven't been considered yet
+    # adds these positions to the considered positions and returns these positions
+    def new_move_positions(pos)
+        new_positions = KnightPathFinder.valid_moves(pos).select { |coord| @considered_positions.include?(coord) == false }
+        new_positions.each { |coord| @considered_positions << coord }
+        new_positions
+    end
+
     def build_move_tree
         # TO DO
     end
