@@ -1,0 +1,51 @@
+require_relative 'tic_tac_toe'
+
+class TicTacToeNode
+  attr_reader :board, :next_mover_mark, :prev_move_pos
+
+  def initialize(board, next_mover_mark, prev_move_pos = nil)
+    @board = board
+    @next_mover_mark = next_mover_mark
+    @prev_move_pos = prev_move_pos
+  end
+
+  def losing_node?(evaluator)
+  end
+
+  def winning_node?(evaluator)
+  end
+
+  # A helper method for #children; returns all empty positions on the
+  # current board
+  def get_empty_positions
+    empty_positions = []
+    board.rows.each_with_index do |row, x|
+      row.each_with_index do |mark, y|
+        empty_positions << [x,y] if board.empty?([x,y])
+      end
+    end
+    empty_positions
+  end
+
+  # flips the current player marker
+  def switch_mark
+    if next_mover_mark == :x
+      return :o
+    else
+      return :x
+    end
+  end
+
+  # This method generates an array of all moves that can be made after
+  # the current move.
+  def children
+    empty_positions = get_empty_positions
+    moves = []
+    empty_positions.each do |pos|
+      duped_board = board.dup
+      duped_board[pos] = next_mover_mark
+      moves << TicTacToeNode.new(duped_board, switch_mark, pos)
+    end
+    moves
+  end
+end
