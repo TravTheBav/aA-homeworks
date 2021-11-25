@@ -10,6 +10,23 @@ class TicTacToeNode
   end
 
   def losing_node?(evaluator)
+    case evaluator
+    when :x
+      opponent = :o
+    else
+      opponent = :x
+    end
+
+    if board.over?
+      return true if board.winner == opponent
+      return false if board.winner == evaluator || board.winner == nil
+    end
+
+    if next_mover_mark != opponent # current node is on player so all children will be player nodes
+      children.all? { |child_node| child_node.losing_node?(evaluator) } # check if all nodes are children nodes are losing nodes on player turn
+    else # current node is on opponent so all children will be opponent nodes
+      children.any? { |child_node| child_node.losing_node?(evaluator) } # check if at least one node is a losing node on opponent turn
+    end
   end
 
   def winning_node?(evaluator)
