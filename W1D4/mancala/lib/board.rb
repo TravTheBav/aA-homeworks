@@ -40,7 +40,7 @@ class Board
       next_pos = (next_pos + 1) % 14 # uses modulo to wrap position around indexes 0 - 13
       @cups[next_pos] << starting_cup.pop unless next_pos == opponent_store_idx      
     end
-    # render
+    render
     next_turn(next_pos)
   end
 
@@ -64,8 +64,22 @@ class Board
   end
 
   def one_side_empty?
+    if @cups[0..5].all? { |cup| cup.empty? }
+      return true
+    elsif @cups[7..12].all? { |cup| cup.empty? }
+      return true
+    else
+      return false
+    end
   end
 
   def winner
+    if @cups[6].length == @cups[13].length
+      return :draw
+    elsif @cups[6].length > @cups[13].length
+      return @name1
+    else
+      return @name2
+    end
   end
 end
