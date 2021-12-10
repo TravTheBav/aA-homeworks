@@ -1,11 +1,21 @@
 require_relative "piece"
+require_relative "null_piece.rb"
+require_relative "rook.rb"
+require_relative "bishop.rb"
+require_relative "queen.rb"
 
 class Board
     def initialize
         @grid = Array.new(8) { Array.new(8) }
-        @grid.each_with_index do |row, idx|
-            if [0, 1, 6, 7].include?(idx)
-                row.map! { Piece.new }
+        @grid.each_with_index do |row, row_idx|
+            row.each_with_index do |col, col_idx|
+                if [0, 1].include?(row_idx)
+                    @grid[row_idx][col_idx] = Queen.new("white", self, [row_idx, col_idx])
+                elsif [6, 7].include?(row_idx)
+                    @grid[row_idx][col_idx] = Rook.new("black", self, [row_idx, col_idx])
+                else
+                    @grid[row_idx][col_idx] = NullPiece.new("none", self, [row_idx, col_idx])
+                end
             end
         end
     end
@@ -23,12 +33,15 @@ class Board
     def move_piece(start_pos, end_pos)
         if self[start_pos].nil?
             puts "must start with an occupied tile"
-        elsif self[end_pos].is_a?(Piece)
-            puts "must move to an empty tile"
         else
             piece = self[start_pos]
-            self[end_pos] = piece
-            self[start_pos] = nil
+            if piece.moves.include?(end_pos) 
+                self[end_pos] = piece
+                self[start_pos] = nil
+            else
+                puts "invalid end position"
+            end
         end
     end
+
 end
