@@ -1,8 +1,4 @@
-require_relative "piece"
-require_relative "null_piece.rb"
-require_relative "rook.rb"
-require_relative "bishop.rb"
-require_relative "queen.rb"
+Dir['pieces/*.rb'].each {|file| require_relative file}
 
 class Board
     def initialize
@@ -10,11 +6,11 @@ class Board
         @grid.each_with_index do |row, row_idx|
             row.each_with_index do |col, col_idx|
                 if [0, 1].include?(row_idx)
-                    @grid[row_idx][col_idx] = Queen.new("white", self, [row_idx, col_idx])
+                    @grid[row_idx][col_idx] = King.new("white", self, [row_idx, col_idx])
                 elsif [6, 7].include?(row_idx)
                     @grid[row_idx][col_idx] = Rook.new("black", self, [row_idx, col_idx])
                 else
-                    @grid[row_idx][col_idx] = NullPiece.new("none", self, [row_idx, col_idx])
+                    @grid[row_idx][col_idx] = NullPiece.instance
                 end
             end
         end

@@ -7,8 +7,4 @@ class Piece
         @board = board
         @pos = pos
     end
-
-    def inspect
-        :P
-    end
 end

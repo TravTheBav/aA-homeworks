@@ -1,4 +1,4 @@
-require "byebug"
+# 'movement' methods for all sliding pieces (rooks, bishops, queens)
 
 module Slideable
     HORIZONTAL_DIRS = ["up", "down", "left", "right"]
