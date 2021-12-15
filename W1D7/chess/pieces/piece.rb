@@ -7,5 +7,9 @@ class Piece
         @board = board
         @pos = pos
     end
-    
+
+    def pos=(val)
+        @pos = val
+    end
+
 end

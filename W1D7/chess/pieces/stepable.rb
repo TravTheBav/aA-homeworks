@@ -2,30 +2,22 @@
 
 module Stepable
     def moves
-        positions = []
+        arr = []
         self.move_diffs.each do |diff|
             row, col = self.pos
             dx, dy = diff
             row += dy
             col += dx
+            pos = [row, col]
             # add pos pair to moves unless the position is blocked by a friendly piece
             # or the position is out of bounds
-            unless self.board[[row, col]].color == self.color || !in_bounds?(row, col)
-                positions << [row, col]
+            if self.board.valid_pos?(pos)
+                unless self.board[pos].color == self.color
+                    arr << pos
+                end
             end
         end
-        positions
-    end
-
-    # checks to see if a row and column are within the board's boundaries
-    def in_bounds?(row, col)
-        if row < 0 || row > 7
-            return false
-        elsif col < 0 || col > 7
-            return false
-        else
-            return true
-        end
+        arr
     end
     
 end

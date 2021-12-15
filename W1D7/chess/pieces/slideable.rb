@@ -69,31 +69,24 @@ module Slideable
         row, col = self.pos
         row += dy
         col += dx
-        return moves if !in_bounds?(row, col)
+        pos = [row, col]
+        return moves if !self.board.valid_pos?(pos)
         # increment initial position by dx/dy and then keep adding positions
         # until another piece is hit
-        while self.board[[row, col]].is_a?(NullPiece) && in_bounds?(row, col)
-            moves << [row, col]
+        while self.board[pos].is_a?(NullPiece) && self.board.valid_pos?(pos)
+            moves << pos
             row += dy
             col += dx
+            pos = [row, col]
         end
         
-        # if the last position was a friendly piece, don't add it to positions
-        if self.board[[row, col]].color != self.color && in_bounds?(row, col)
-            moves << [row, col]
+        # if the last position was a valid space, check if it was a friendly piece
+        if self.board.valid_pos?(pos)
+            unless self.board[pos].color == self.color
+                moves << pos
+            end
         end
         moves
-    end
-
-    # checks to see if a row and column are within the board's boundaries
-    def in_bounds?(row, col)
-        if row < 0 || row > 7
-            return false
-        elsif col < 0 || col > 7
-            return false
-        else
-            return true
-        end
     end
 
 end

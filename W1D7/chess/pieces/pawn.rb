@@ -16,13 +16,17 @@ class Pawn < Piece
         forward_steps.each do |step|
             next_row = row + (step * self.forward_dir)
             pos = [next_row, col]
-            arr << pos if self.board[pos].is_a?(NullPiece) # can only move forward to empty spaces
+            if self.board[pos].is_a?(NullPiece) && self.board.valid_pos?(pos) # can only move forward to empty spaces
+                arr << pos
+            end
         end
         side_attacks.each do |y|
             attack_row = row + forward_dir
             attack_col = col + y
             pos = [attack_row, attack_col]
-            unless self.board[pos].color == self.color || self.board[pos].is_a?(NullPiece)
+            unless self.board[pos].color == self.color ||
+                self.board[pos].is_a?(NullPiece) ||
+                !self.board.valid_pos?(pos)
                 arr << pos
             end
         end
