@@ -19,4 +19,5 @@ class Queen < Piece
             "up-left", "up-right", "down-left", "down-right"
         ]
     end
+
 end

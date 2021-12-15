@@ -16,4 +16,5 @@ class Bishop < Piece
     def move_dirs
         ["up-left", "up-right", "down-left", "down-right"]
     end
+
 end

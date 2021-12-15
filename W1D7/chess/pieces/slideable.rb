@@ -95,4 +95,5 @@ module Slideable
             return true
         end
     end
+
 end

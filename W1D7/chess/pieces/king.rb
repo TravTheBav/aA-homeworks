@@ -25,4 +25,5 @@ class King < Piece
             [1,1]
         ]
     end
+
 end

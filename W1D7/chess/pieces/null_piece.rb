@@ -15,4 +15,5 @@ class NullPiece < Piece
     def inspect
         symbol
     end
+    
 end
