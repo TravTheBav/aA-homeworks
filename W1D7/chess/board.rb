@@ -36,7 +36,7 @@ class Board
         @rows[row][col] = piece
     end
 
-    def move_piece(start_pos, end_pos)
+    def move_piece(color, start_pos, end_pos)
         if self[start_pos].is_a?(NullPiece)
             puts "must start with an occupied tile"
         else
