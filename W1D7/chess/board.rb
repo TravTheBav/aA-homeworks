@@ -38,6 +38,17 @@ class Board
         @rows[row][col] = piece
     end
 
+    # an array of all pieces
+    def pieces
+        arr = []
+        @rows.each_with_index do |row, row_idx|
+            row.each_with_index do |piece, col_idx|
+                arr << piece
+            end
+        end
+        arr.reject {|piece| piece == NullPiece.instance}
+    end
+
     def move_piece(color, start_pos, end_pos)
         if self[start_pos].is_a?(NullPiece)
             puts "must start with an occupied tile"
@@ -59,6 +70,13 @@ class Board
 
     def add_piece(piece, pos)
         self[pos] = piece
+    end
+
+    def in_check?(color)
+        arr = pieces.select {|piece| piece.is_a?(King) && piece.color == color}
+        king = arr.pop
+        opponent_pieces = pieces.reject {|piece| piece.color == color}
+        opponent_pieces.any? {|piece| piece.moves.include?(king.pos)}
     end
 
 end

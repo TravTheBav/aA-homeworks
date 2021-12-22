@@ -20,10 +20,11 @@ class Pawn < Piece
             attack_row = row + forward_dir
             attack_col = col + y
             pos = [attack_row, attack_col]
-            unless self.board[pos].color == self.color ||
-                self.board[pos].is_a?(NullPiece) ||
-                !self.board.valid_pos?(pos)
-                arr << pos
+            if self.board.valid_pos?(pos)
+                unless self.board[pos].color.nil? ||
+                    self.board[pos].color == self.color
+                    arr << pos
+                end
             end
         end
         arr
