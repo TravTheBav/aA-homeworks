@@ -8,10 +8,6 @@ class Rook < Piece
         "R"
     end
 
-    def inspect
-        symbol
-    end
-
     private
     def move_dirs
         ["up", "down", "left", "right"]

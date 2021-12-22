@@ -8,10 +8,6 @@ class King < Piece
         "K"
     end
 
-    def inspect
-        symbol
-    end
-
     protected
     def move_diffs
         [

@@ -8,10 +8,6 @@ class Queen < Piece
         "Q"
     end
 
-    def inspect
-        symbol
-    end
-
     private
     def move_dirs
         [

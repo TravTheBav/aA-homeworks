@@ -8,10 +8,6 @@ class Bishop < Piece
         "B"
     end
 
-    def inspect
-        symbol
-    end
-
     private
     def move_dirs
         ["up-left", "up-right", "down-left", "down-right"]

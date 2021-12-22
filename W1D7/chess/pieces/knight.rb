@@ -8,10 +8,6 @@ class Knight < Piece
         "H"
     end
 
-    def inspect
-        symbol
-    end
-
     protected
     def move_diffs
         [

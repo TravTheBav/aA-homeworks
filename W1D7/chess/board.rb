@@ -1,6 +1,8 @@
 Dir['pieces/*.rb'].each {|file| require_relative file}
 
 class Board
+    attr_reader :rows
+
     def initialize
         @rows = Array.new(8) { Array.new(8) }
         black_pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
@@ -10,14 +12,14 @@ class Board
                 pos = [row_idx, col_idx]
                 if row_idx == 0
                     piece = black_pieces.shift
-                    piece = piece.new("black", self, pos)
+                    piece = piece.new(:black, self, pos)
                 elsif row_idx == 7
                     piece = white_pieces.shift
-                    piece = piece.new("white", self, pos)
+                    piece = piece.new(:white, self, pos)
                 elsif row_idx == 1
-                    piece = Pawn.new("black", self, pos)
+                    piece = Pawn.new(:black, self, pos)
                 elsif row_idx == 6
-                    piece = Pawn.new("white", self, pos)
+                    piece = Pawn.new(:white, self, pos)
                 else
                     piece = NullPiece.instance
                 end
